@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Buttons</title>
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Condensed|IBM+Plex+Serif" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'IBM Plex Serif', 'IBM Plex Sans Condensed', serif;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            text-decoration: none;
+            font-size: 14px;
+            padding: .8em;
+            margin: .2rem;
+            border-radius: .2em;
+            background-color: #1A535C;
+            color: #F7FFF7;
+            cursor: pointer;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .button:active {
+            background-color: #4ECDC4;
+        }
+
+        .notch-top-left {
+            transition: .4s;
+            clip-path: polygon(0 0, 0 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .notch-top-left:hover {
+            clip-path: polygon(0 1em, 1em 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .notch-top-right {
+            transition: .4s;
+            clip-path: polygon(0 0, 100% 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .notch-top-right:hover {
+            clip-path: polygon(0 0, calc(100% - 1em) 0, 100% 1em, 100% 100%, 0 100%);
+        }
+
+        .notch-bottom-right {
+            transition: .4s;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 100%);
+        }
+
+        .notch-bottom-right:hover {
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 1em), calc(100% - 1em) 100%, 0 100%);
+        }
+
+        .notch-bottom-left {
+            transition: .4s;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 100%);
+        }
+
+        .notch-bottom-left:hover {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 1em 100%, 0 calc(100% - 1em));
+        }
+
+        /**
+         * The layer is a solid white layer over the button.
+         * mix-blend-mode difference allows the text and background underneath
+         * the layer to come through inverted.
+         */
+
+        .layer {
+            position: relative;
+        }
+
+        .layer::before {
+            content: ' ';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: .2em;
+            /* same as button */
+            background-color: white;
+            mix-blend-mode: difference;
+        }
+
+        .layer-swipe-right::before {
+            transition: .3s;
+            clip-path: polygon(0 0, 0 100%, 0 100%, 0 0);
+        }
+
+        .layer-swipe-right:hover::before {
+            clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0);
+        }
+
+        .layer-swipe-left::before {
+            transition: .3s;
+            clip-path: polygon(100% 0, 100% 100%, 100% 100%, 100% 0);
+        }
+
+        .layer-swipe-left:hover::before {
+            clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0);
+        }
+
+        .layer-swipe-up::before {
+            transition: .3s;
+            clip-path: polygon(0 100%, 0 100%, 100% 100%, 100% 100%);
+        }
+
+        .layer-swipe-up:hover::before {
+            clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0);
+        }
+
+        .layer-swipe-down::before {
+            transition: .3s;
+            clip-path: polygon(0 0, 0 0, 100% 0, 100% 0);
+        }
+
+        .layer-swipe-down:hover::before {
+            clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0);
+        }
+
+        .layer-swipe-right-top-edge::before {
+            transition: .3s;
+            clip-path: polygon(0 0, 0 100%, -1rem 100%, 0 0);
+        }
+
+        .layer-swipe-right-top-edge:hover::before {
+            clip-path: polygon(0 0, 0 100%, 100% 100%, calc(100% + 1rem) 0);
+        }
+
+        .layer-swipe-left-top-edge::before {
+            transition: .3s;
+            clip-path: polygon(100% 0, calc(100% + 1rem) 100%, 100% 100%, 100% 0);
+        }
+
+        .layer-swipe-left-top-edge:hover::before {
+            clip-path: polygon(-1rem 0, 0 100%, 100% 100%, 100% 0);
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="width: 100vw; text-align: center">Animated Buttons</h1>
+    <a class="button notch-top-left">Notch Top Left</a>
+    <a class="button notch-top-right">Notch Top Right</a>
+    <a class="button notch-bottom-right">Notch Bottom Right</a>
+    <a class="button notch-bottom-left">Notch Bottom Left</a>
+    <a class="button layer layer-swipe-right">Swipe Right</a>
+    <a class="button layer layer-swipe-left">Swipe Left</a>
+    <a class="button layer layer-swipe-up">Swipe Up</a>
+    <a class="button layer layer-swipe-down">Swipe Down</a>
+    <a class="button layer layer-swipe-right-top-edge">Swipe Right Top Edge</a>
+    <a class="button layer layer-swipe-left-top-edge">Swipe Left Top Edge</a>
+</body>
+
+</html>
