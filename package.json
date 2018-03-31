@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "browser-sync --server",
+    "start": "browser-sync --server --files=*.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
