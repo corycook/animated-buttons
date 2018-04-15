@@ -7,8 +7,13 @@
         :host {
             display: flex;
         }
+
+        .none::before {
+            visibility: hidden;
+            transition: all 0s;
+        }
     </style>
-    <a id="btn" class="button layer layer-swipe-down"></a>
+    <a id="btn" class="button layer none"></a>
 </template>
 
 <script>
@@ -30,11 +35,13 @@
         }
 
         onMouseOver(event) {
+            clearTimeout(this.timerID);
             this.btn.classList.replace(this.currentAnimation, this.getAnimation(event.offsetX, event.offsetY));
         }
 
         onMouseOut(event) {
             this.btn.classList.replace(this.currentAnimation, this.getAnimation(event.offsetX, event.offsetY));
+            this.timerID = setTimeout(() => this.btn.classList.replace(this.currentAnimation, 'none'), 200);
         }
 
         getAnimation(x, y) {
@@ -47,7 +54,10 @@
             if (y > this.clientHeight - 20) {
                 return 'layer-swipe-up';
             }
-            return 'layer-swipe-down';
+            if (y < 20) {
+                return 'layer-swipe-down';
+            }
+            return 'none';
         }
     }
 
