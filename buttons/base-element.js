@@ -8,7 +8,7 @@ const when = type => {
   });
 };
 
-const debounce = fn => {
+const throttle = fn => {
   let called = false;
   return (...args) => {
     if (!called) {
@@ -55,7 +55,7 @@ function BaseElement() {
       this.eventHandlers.push(
         this.on("mouseover", "onMouseOver"),
         this.on("mouseout", "onMouseOut"),
-        this.on("mousemove", debounce(e => this.onMouseMove(e)))
+        this.on("mousemove", throttle(e => this.onMouseMove(e)))
       );
       return document.readyState === "loading"
         ? when("DOMContentLoaded").then(() => this.componentDidMount())
