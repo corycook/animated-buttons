@@ -1,0 +1,65 @@
+<script src="./base-element.js"></script>
+
+<template>
+    <style>
+        @import url('./buttons/button.css');
+
+        :host {
+            display: flex;
+        }
+
+        .none::before {
+            visibility: hidden;
+            transition: all 0s;
+        }
+    </style>
+    <a id="btn" class="button layer none"></a>
+</template>
+
+<script>
+    class SwipeDirectionalButton extends BaseElement() {
+        static get is() {
+            return 'button-swipe-directional';
+        }
+
+        get btn() {
+            return this.shadowRoot.getElementById('btn');
+        }
+
+        get currentAnimation() {
+            return this.btn.classList.item(2);
+        }
+
+        componentDidMount() {
+            this.btn.appendChild(...this.childNodes);
+        }
+
+        onMouseOver(event) {
+            clearTimeout(this.timerID);
+            this.btn.classList.replace(this.currentAnimation, this.getAnimation(event.offsetX, event.offsetY));
+        }
+
+        onMouseOut(event) {
+            this.btn.classList.replace(this.currentAnimation, this.getAnimation(event.offsetX, event.offsetY));
+            this.timerID = setTimeout(() => this.btn.classList.replace(this.currentAnimation, 'none'), 200);
+        }
+
+        getAnimation(x, y) {
+            if (x < 20) {
+                return 'layer-swipe-right';
+            }
+            if (x > this.clientWidth - 20) {
+                return 'layer-swipe-left';
+            }
+            if (y > this.clientHeight - 20) {
+                return 'layer-swipe-up';
+            }
+            if (y < 20) {
+                return 'layer-swipe-down';
+            }
+            return 'none';
+        }
+    }
+
+    customElements.define(SwipeDirectionalButton.is, SwipeDirectionalButton);
+</script>
